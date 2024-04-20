@@ -16,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-
 @Service
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -61,7 +60,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     public JwtAuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest){
         String userName = jwtService.extractUserName(refreshTokenRequest.getToken());
-        User user = userRepository.findByUsername(userName).orElseThrow();
+        var user = userRepository.findByUsername(userName).orElseThrow();
         if (jwtService.isTokenValid(refreshTokenRequest.getToken(),user)){
             var jwt = jwtService.generateToken(user);
 
